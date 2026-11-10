@@ -1,7 +1,8 @@
 {
-  "version": "b174edccb5f087e8",
-  "source_sha256": "63a6d36a6e11d63773c3e94552eb193cb5bdcad74209de5688f2568e7f060d0b",
-  "html_sha256": "b174edccb5f087e8b0161d50fe164a700ce9b81ec6178687e914723f0c411a68",
-  "prepared_at": "2026-11-09T16:08:59+00:00",
+  "version": "84ee9c4e33ba799e",
+  "source_sha256": "3a9c125cc4dec071f67a5f9a2e6ac250f1c104bc2e50018a2eac328f56570fd4",
+  "html_sha256": "84ee9c4e33ba799edce0b1344006f35f8e7a7f953abdd1378518169a6ec09068",
+  "checkins_sha256": "d425f2d36ebfb288927b42cf1cfc401cafd1772222fb2d16629a55a0e8a01c1d",
+  "prepared_at": "2026-11-10T08:52:01+00:00",
   "days": 7
 }

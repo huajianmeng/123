@@ -1591,6 +1591,10 @@ main { max-width:1280px; margin:0 auto; padding:27px 32px 42px; }
 #japan-daily-travel-map .hotel-budget p+p { margin-top:10px; }
 #japan-daily-travel-map .hotel-budget > summary { font-weight:650; }
 #japan-daily-travel-map .hotel-budget[open] > summary { margin-bottom:12px; }
+#japan-daily-travel-map .checkin-list-bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-8px 0 18px; }
+#japan-daily-travel-map .checkin-list-bar a { display:inline-flex; align-items:center; min-height:44px; padding:8px 16px; border-radius:10px; background:var(--forest); color:#fff; text-decoration:none; font-size:14px; font-weight:650; }
+#japan-daily-travel-map .checkin-list-bar a:hover { background:var(--forest-dark); }
+#japan-daily-travel-map .checkin-list-bar span { font-size:13px; color:var(--quiet); }
 #japan-daily-travel-map .day-nav-shell { position:sticky; top:0; z-index:30; background:rgba(246,245,239,.97); padding:11px 0; margin:0 0 22px; border-bottom:1px solid var(--line); backdrop-filter:blur(12px); }
 #japan-daily-travel-map .day-picker { display:flex; gap:8px; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none; scroll-padding-inline:4px; margin:0; padding:2px; }
 #japan-daily-travel-map .day-picker::-webkit-scrollbar { display:none; }
@@ -1877,6 +1881,7 @@ main { max-width:1280px; margin:0 auto; padding:27px 32px 42px; }
 <button class="btn" type="button" data-day="4" aria-pressed="false">第五天</button>
 <button class="btn" type="button" data-day="5" aria-pressed="false">第六天</button>
 <button class="btn" type="button" data-day="6" aria-pressed="false">第七天</button></div></div>
+  <div class="checkin-list-bar"><a href="checkins.html" target="_blank" rel="noopener">打卡清单 · 45 个点位 ↗</a><span>按天筛选，每个点都带地址和拍法</span></div>
 
     <div class="daily-layout">
   <aside class="map-block" aria-label="大阪与关西每日路线地图">
