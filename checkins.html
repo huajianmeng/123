@@ -7,40 +7,45 @@
 <title>打卡清单 · 关西七日</title>
 <style>
 *{box-sizing:border-box}
-:root{--ink:#20382f;--forest:#215c48;--paper:#f6f5ef;--surface:#fffefa;--line:#e1e6dd;--quiet:#5d6d64;--accent:#b95d3d}
+:root{--ink:#20382f;--forest:#215c48;--paper:#f6f5ef;--surface:#fffefa;--line:#e1e6dd;--quiet:#5d6d64}
 html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
 a{color:var(--forest)}
-.top{max-width:1080px;margin:0 auto;padding:26px 16px 6px}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(246,245,239,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.topbar a.back{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);text-decoration:none;font-size:14px;font-weight:650}
+.topbar span{font-size:12px;color:var(--quiet)}
+.top{max-width:1080px;margin:0 auto;padding:22px 16px 4px}
 .kicker{margin:0 0 6px;font-size:12px;letter-spacing:2px;color:var(--quiet)}
-h1{margin:0;font-size:34px;letter-spacing:1px}
-.sub{margin:8px 0 0;font-size:15px;color:var(--quiet)}
-.filters{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow-x:auto;padding:12px 0 10px;background:linear-gradient(var(--paper) 70%,rgba(246,245,239,0));scrollbar-width:none}
+h1{margin:0;font-size:32px;letter-spacing:1px}
+.sub{margin:8px 0 0;font-size:15px;color:var(--quiet);line-height:1.7}
+.filters{position:sticky;top:61px;z-index:20;display:flex;gap:8px;overflow-x:auto;padding:10px 0 8px;background:linear-gradient(var(--paper) 70%,rgba(246,245,239,0));scrollbar-width:none}
 .filters::-webkit-scrollbar{display:none}
-.filters button{flex:0 0 auto;min-height:42px;padding:8px 15px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600}
+.filters button{flex:0 0 auto;min-height:40px;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600}
 .filters button[aria-pressed=true]{background:var(--forest);border-color:var(--forest);color:#fff}
-main{max-width:1080px;margin:0 auto;padding:8px 16px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+main{max-width:1080px;margin:0 auto;padding:8px 16px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .card[hidden]{display:none}
 .card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#e8e4da}
-.body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:6px}
+.body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:7px}
 .meta{display:flex;gap:8px;align-items:center}
 .day{font-size:12px;font-weight:700;color:var(--quiet);letter-spacing:.5px}
 .type{font-size:12px;font-weight:700;color:#fff;background:var(--c);border-radius:999px;padding:2px 10px}
 h2{margin:0;font-size:19px;line-height:1.45}
 .addr{margin:0;font-size:13px;color:var(--quiet);line-height:1.6}
-.tip{margin:0;font-size:14px;line-height:1.7}
-.when{margin:0;font-size:12px;color:var(--quiet)}
+.shots{margin:2px 0 0;padding-left:18px;display:grid;gap:5px;font-size:14px;line-height:1.65}
+.shots li::marker{color:var(--accent,#b95d3d)}
+.when{margin:2px 0 0;font-size:12px;color:var(--quiet)}
 .when b{color:var(--forest)}
 .kw{margin:2px 0 0;font-size:12px;color:var(--quiet)}
-.kw a{display:inline-block;margin-left:6px;padding:2px 8px;border:1px solid var(--line);border-radius:999px;text-decoration:none}
+.kw a{display:inline-block;margin-left:6px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;text-decoration:none}
 footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--quiet);line-height:1.8}
 </style>
 </head>
 <body>
+<div class="topbar"><a class="back" href="./">← 返回主页</a><span>7 天行程 · 打卡清单</span></div>
 <header class="top">
   <p class="kicker">JAPAN 7-DAY CHECK-IN LIST</p>
   <h1>打卡清单</h1>
-  <p class="sub">7 天 · 45 个点位 · 景点 / 店铺 / 机位 / 体验，点开可看地址和拍法</p>
+  <p class="sub">7 天 · 45 个点位。每个点都写了<b>站在哪、镜头里有什么</b>，想多看别人的成片就点最下面的搜索。</p>
   <div class="filters" id="filters"><button type="button" data-day="all" aria-pressed="true">全部 45</button><button type="button" data-day="1" aria-pressed="false">第1天</button><button type="button" data-day="2" aria-pressed="false">第2天</button><button type="button" data-day="3" aria-pressed="false">第3天</button><button type="button" data-day="4" aria-pressed="false">第4天</button><button type="button" data-day="5" aria-pressed="false">第5天</button><button type="button" data-day="6" aria-pressed="false">第6天</button><button type="button" data-day="7" aria-pressed="false">第7天</button></div>
 </header>
 <main id="list">
@@ -50,9 +55,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#2f5f7a">地标</span></div>
           <h2>关西国际机场 KIX</h2>
           <p class="addr">大阪府泉佐野市泉州空港北1 · 关西机场站直连</p>
-          <p class="tip">落地后在 T1 二楼出发层大玻璃前拍飞机与海面；行李多就别久留。</p>
+          <ul class="shots"><li>机位A：T1 二楼出发层落地窗，飞机机身占画面下半、海面留白</li><li>机位B：到达层出口的「関西国際空港」立体字，人站字前拍半身</li></ul>
           <p class="when"><b>最佳时间</b> 到达当天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA%20%E8%90%BD%E5%9C%B0%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA%20%E8%90%BD%E5%9C%B0%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA%20%E6%8B%8D%E7%85%A7%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA%20%E6%8B%8D%E7%85%A7%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA%20%E6%8B%8D%E7%85%A7%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -61,9 +66,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#5d6d64">街区</span></div>
           <h2>心斋桥筋商店街</h2>
           <p class="addr">大阪市中央区心斎橋筋 · 心斋桥站5/6号出口</p>
-          <p class="tip">有顶棚长廊＋两侧招牌，站在街口往里拍纵深；白天人少一点。</p>
+          <ul class="shots"><li>机位A：拱廊入口正中，蹲低一点拍纵深，让顶棚线条往中间收</li><li>机位B：走到中段回身拍，把「心斎橋筋」招牌和人群一起收进来</li></ul>
           <p class="when"><b>最佳时间</b> 16:00 后灯亮</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%E7%AD%8B%20%E6%8B%B1%E5%BB%8A%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%E7%AD%8B%20%E6%8B%B1%E5%BB%8A%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%E7%AD%8B%20%E6%8B%B1%E5%BB%8A%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%BF%83%E6%96%8B%E6%A1%A5%E7%AD%8B%20%E6%8B%B1%E5%BB%8A%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%E7%AD%8B%20%E6%8B%B1%E5%BB%8A%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -72,9 +77,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#8a6a3d">店铺</span></div>
           <h2>大丸心斋桥本馆</h2>
           <p class="addr">大阪市中央区心斎橋筋1-7-1</p>
-          <p class="tip">御堂筋侧的老建筑立面＋橱窗，适合拍建筑细节。</p>
+          <ul class="shots"><li>机位A：御堂筋侧人行道对角，拍整栋立面＋门前旗子</li><li>机位B：橱窗前 45 度侧拍，人靠墙、橱窗光打脸上</li></ul>
           <p class="when"><b>最佳时间</b> 白天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E4%B8%B8%E5%BF%83%E6%96%8B%E6%A1%A5%20%E5%BB%BA%E7%AD%91" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E4%B8%B8%E5%BF%83%E6%96%8B%E6%A1%A5%20%E5%BB%BA%E7%AD%91" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E4%B8%B8%E5%BF%83%E6%96%8B%E6%A1%A5%20%E5%BB%BA%E7%AD%91%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A4%A7%E4%B8%B8%E5%BF%83%E6%96%8B%E6%A1%A5%20%E5%BB%BA%E7%AD%91%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E4%B8%B8%E5%BF%83%E6%96%8B%E6%A1%A5%20%E5%BB%BA%E7%AD%91%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -83,9 +88,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#8a6a3d">店铺</span></div>
           <h2>松本清 心斋桥店</h2>
           <p class="addr">大阪市中央区心斎橋筋2-1-21</p>
-          <p class="tip">药妆扫货主战场，门口招牌是常见打卡位；先列清单再进店。</p>
+          <ul class="shots"><li>机位A：门口招牌正下方仰拍，招牌占上半张</li><li>机位B：货架前手持商品拍特写，背景虚化</li></ul>
           <p class="when"><b>最佳时间</b> 全天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%20%E8%8D%AF%E5%A6%86%20%E6%94%BB%E7%95%A5" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%20%E8%8D%AF%E5%A6%86%20%E6%94%BB%E7%95%A5" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%20%E8%8D%AF%E5%A6%86%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%BF%83%E6%96%8B%E6%A1%A5%20%E8%8D%AF%E5%A6%86%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%BF%83%E6%96%8B%E6%A1%A5%20%E8%8D%AF%E5%A6%86%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -94,9 +99,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#a8563f">食物</span></div>
           <h2>Rikuro 老爷芝士蛋糕</h2>
           <p class="addr">大阪市中央区心斎橋筋1丁目</p>
-          <p class="tip">现烤芝士蛋糕出炉时摇铃，拍刚出炉的那一炉；趁热吃。</p>
+          <ul class="shots"><li>机位A：出炉摇铃时拍师傅端盘那一下</li><li>机位B：蛋糕切开拉丝特写，背景放店铺纸袋</li></ul>
           <p class="when"><b>最佳时间</b> 出炉时段</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=rikuro%20%E8%8A%9D%E5%A3%AB%E8%9B%8B%E7%B3%95" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=rikuro%20%E8%8A%9D%E5%A3%AB%E8%9B%8B%E7%B3%95" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=rikuro%20%E8%8A%9D%E5%A3%AB%E8%9B%8B%E7%B3%95%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/rikuro%20%E8%8A%9D%E5%A3%AB%E8%9B%8B%E7%B3%95%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=rikuro%20%E8%8A%9D%E5%A3%AB%E8%9B%8B%E7%B3%95%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -105,9 +110,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>戎桥 · 格力高跑步人</h2>
           <p class="addr">大阪市中央区道頓堀1-10 · 难波站14号出口步行5分</p>
-          <p class="tip">站桥面偏东侧，把跑步人和道顿堀霓虹一起收进来；夜里灯全亮最出片。</p>
+          <ul class="shots"><li>机位A：桥面东侧栏杆边站定，横构图让跑步人在左、道顿堀招牌在右</li><li>机位B：下到河岸步道仰拍，跑步人在上、水面倒影在下</li><li>机位C：夜里灯全亮后拍，人背对镜头举手，剪影最出片</li></ul>
           <p class="when"><b>最佳时间</b> 日落后 1 小时</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%A0%BC%E5%8A%9B%E9%AB%98%20%E6%9C%BA%E4%BD%8D%20%E9%81%93%E9%A1%BF%E5%A0%80" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%A0%BC%E5%8A%9B%E9%AB%98%20%E6%9C%BA%E4%BD%8D%20%E9%81%93%E9%A1%BF%E5%A0%80" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%A0%BC%E5%8A%9B%E9%AB%98%20%E6%9C%BA%E4%BD%8D%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%A0%BC%E5%8A%9B%E9%AB%98%20%E6%9C%BA%E4%BD%8D%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%A0%BC%E5%8A%9B%E9%AB%98%20%E6%9C%BA%E4%BD%8D%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -116,9 +121,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>道顿堀霓虹街</h2>
           <p class="addr">大阪市中央区道頓堀1丁目</p>
-          <p class="tip">沿河步道拍巨大章鱼、河豚招牌；人多时靠栏杆压低机位。</p>
+          <ul class="shots"><li>机位A：河边栏杆处侧拍，把巨型章鱼招牌夹在两栋楼之间</li><li>机位B：桥中央往下拍河面，霓虹倒影占下半张</li></ul>
           <p class="when"><b>最佳时间</b> 18:00 后</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%81%93%E9%A1%BF%E5%A0%80%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E9%81%93%E9%A1%BF%E5%A0%80%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%81%93%E9%A1%BF%E5%A0%80%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E9%81%93%E9%A1%BF%E5%A0%80%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E9%81%93%E9%A1%BF%E5%A0%80%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -127,9 +132,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#5d6d64">街区</span></div>
           <h2>法善寺横丁</h2>
           <p class="addr">大阪市中央区難波1-2-16</p>
-          <p class="tip">石板小巷＋红灯笼，水挂不动尊前拍香火与青苔。</p>
+          <ul class="shots"><li>机位A：巷口往里拍，石板路＋红灯笼形成引导线</li><li>机位B：水挂不动尊前俯拍青苔与香炉，别开闪光</li></ul>
           <p class="when"><b>最佳时间</b> 傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B3%95%E5%96%84%E5%AF%BA%E6%A8%AA%E4%B8%81%20%E5%B0%8F%E5%B7%B7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%B3%95%E5%96%84%E5%AF%BA%E6%A8%AA%E4%B8%81%20%E5%B0%8F%E5%B7%B7" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B3%95%E5%96%84%E5%AF%BA%E6%A8%AA%E4%B8%81%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%B3%95%E5%96%84%E5%AF%BA%E6%A8%AA%E4%B8%81%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%B3%95%E5%96%84%E5%AF%BA%E6%A8%AA%E4%B8%81%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="1">
@@ -138,9 +143,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第1天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>御堂筋彩灯</h2>
           <p class="addr">大阪市中央区御堂筋 · 心斋桥—梅田段</p>
-          <p class="tip">银杏树缠灯，站人行道中间拍纵深光廊；车流用长曝光。</p>
+          <ul class="shots"><li>机位A：人行道正中，用广角拍两侧灯树往远处收</li><li>机位B：站到路缘石，长曝光拍车灯轨迹</li></ul>
           <p class="when"><b>最佳时间</b> 11 月起傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BE%A1%E5%A0%82%E7%AD%8B%20%E5%BD%A9%E7%81%AF" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%BE%A1%E5%A0%82%E7%AD%8B%20%E5%BD%A9%E7%81%AF" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BE%A1%E5%A0%82%E7%AD%8B%20%E5%BD%A9%E7%81%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%BE%A1%E5%A0%82%E7%AD%8B%20%E5%BD%A9%E7%81%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%BE%A1%E5%A0%82%E7%AD%8B%20%E5%BD%A9%E7%81%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -149,9 +154,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#3f6a8a">体验</span></div>
           <h2>Sushi Making Experience Namba</h2>
           <p class="addr">大阪市中央区西心斎橋2-6-11 ライアンビル1A</p>
-          <p class="tip">穿厨师服坐着手捏 8 贯，做完拍成品＋自己那双手。</p>
+          <ul class="shots"><li>机位A：围裙＋厨师帽穿戴整齐后，从斜上方拍双手捏寿司</li><li>机位B：成品八贯平铺俯拍，木盘进画面</li></ul>
           <p class="when"><b>最佳时间</b> 上午场</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E9%98%AA%20%E6%8D%8F%E5%AF%BF%E5%8F%B8%20%E4%BD%93%E9%AA%8C" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E9%98%AA%20%E6%8D%8F%E5%AF%BF%E5%8F%B8%20%E4%BD%93%E9%AA%8C" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E9%98%AA%20%E6%8D%8F%E5%AF%BF%E5%8F%B8%20%E4%BD%93%E9%AA%8C%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A4%A7%E9%98%AA%20%E6%8D%8F%E5%AF%BF%E5%8F%B8%20%E4%BD%93%E9%AA%8C%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E9%98%AA%20%E6%8D%8F%E5%AF%BF%E5%8F%B8%20%E4%BD%93%E9%AA%8C%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -160,9 +165,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>近铁奈良站前</h2>
           <p class="addr">奈良市東向中町 · 近铁奈良站</p>
-          <p class="tip">站前广场有鹿出没，适合和鹿合影的第一张；别喂食。</p>
+          <ul class="shots"><li>机位A：站前广场蹲下与鹿平视，背景带站牌</li><li>机位B：出站台阶上往下拍，人和鹿在画面下方 1/3</li></ul>
           <p class="when"><b>最佳时间</b> 午后</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E8%BF%91%E9%93%81%E5%A5%88%E8%89%AF%20%E7%AB%99%E5%89%8D%20%E9%B9%BF" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E8%BF%91%E9%93%81%E5%A5%88%E8%89%AF%20%E7%AB%99%E5%89%8D%20%E9%B9%BF" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E8%BF%91%E9%93%81%E5%A5%88%E8%89%AF%20%E7%AB%99%E5%89%8D%20%E9%B9%BF%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E8%BF%91%E9%93%81%E5%A5%88%E8%89%AF%20%E7%AB%99%E5%89%8D%20%E9%B9%BF%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E8%BF%91%E9%93%81%E5%A5%88%E8%89%AF%20%E7%AB%99%E5%89%8D%20%E9%B9%BF%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -171,9 +176,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>登大路园地看鹿</h2>
           <p class="addr">奈良県庁向かい · 近铁奈良站步行10分</p>
-          <p class="tip">草坪＋鹿群＋兴福寺五重塔同框，是奈良最经典的机位；蹲下拍视角更好。</p>
+          <ul class="shots"><li>机位A：草坪边缘蹲着拍，让鹿抬头、兴福寺五重塔在背后</li><li>机位B：坐在长椅上侧拍，人和鹿同高，背景虚化</li></ul>
           <p class="when"><b>最佳时间</b> 14:00–15:00</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%20%E7%99%BB%E5%A4%A7%E8%B7%AF%20%E9%B9%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%20%E7%99%BB%E5%A4%A7%E8%B7%AF%20%E9%B9%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%20%E7%9C%8B%E9%B9%BF%20%E6%9C%BA%E4%BD%8D%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A5%88%E8%89%AF%20%E7%9C%8B%E9%B9%BF%20%E6%9C%BA%E4%BD%8D%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%20%E7%9C%8B%E9%B9%BF%20%E6%9C%BA%E4%BD%8D%20%E6%80%8E%E4%B9%88%E6%8B%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -182,9 +187,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>东大寺大佛殿</h2>
           <p class="addr">奈良市雑司町406-1</p>
-          <p class="tip">南大门到中门的石阶仰拍大佛殿；正门柱洞「柱くぐり」可拍排队的人。</p>
+          <ul class="shots"><li>机位A：南大门内石阶下仰拍，屋檐压顶、人站中轴</li><li>机位B：中门门洞取景，把大佛殿框在门里</li></ul>
           <p class="when"><b>最佳时间</b> 白天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%9C%E5%A4%A7%E5%AF%BA%20%E5%A4%A7%E4%BD%9B%E6%AE%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%B8%9C%E5%A4%A7%E5%AF%BA%20%E5%A4%A7%E4%BD%9B%E6%AE%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%9C%E5%A4%A7%E5%AF%BA%20%E5%A4%A7%E4%BD%9B%E6%AE%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%B8%9C%E5%A4%A7%E5%AF%BA%20%E5%A4%A7%E4%BD%9B%E6%AE%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%B8%9C%E5%A4%A7%E5%AF%BA%20%E5%A4%A7%E4%BD%9B%E6%AE%BF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -193,9 +198,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>奈良大佛（卢舍那佛）</h2>
           <p class="addr">东大寺大佛殿内</p>
-          <p class="tip">堂内可拍大佛正面，光线暗，手机开夜景模式；堂内禁用闪光。</p>
+          <ul class="shots"><li>机位A：堂内正前方低机位仰拍，让大佛占满上半张</li><li>机位B：侧柱旁取景，一尊佛像配一根大柱做尺度对比</li></ul>
           <p class="when"><b>最佳时间</b> 白天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%E5%A4%A7%E4%BD%9B" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%E5%A4%A7%E4%BD%9B" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%E5%A4%A7%E4%BD%9B%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A5%88%E8%89%AF%E5%A4%A7%E4%BD%9B%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%E5%A4%A7%E4%BD%9B%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -204,9 +209,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>飞火野鹿群</h2>
           <p class="addr">春日大社表参道 · 飞火野巴士停</p>
-          <p class="tip">开阔草坡，鹿群逆光剪影最好看；傍晚光低。</p>
+          <ul class="shots"><li>机位A：傍晚逆光，蹲低拍鹿群剪影</li><li>机位B：草坡边缘等鹿走进画面 2/3 处再按快门</li></ul>
           <p class="when"><b>最佳时间</b> 傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%A3%9E%E7%81%AB%E9%87%8E%20%E9%B9%BF%20%E9%80%86%E5%85%89" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E9%A3%9E%E7%81%AB%E9%87%8E%20%E9%B9%BF%20%E9%80%86%E5%85%89" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%A3%9E%E7%81%AB%E9%87%8E%20%E9%B9%BF%20%E9%80%86%E5%85%89" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E9%A3%9E%E7%81%AB%E9%87%8E%20%E9%B9%BF%20%E9%80%86%E5%85%89" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E9%A3%9E%E7%81%AB%E9%87%8E%20%E9%B9%BF%20%E9%80%86%E5%85%89" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -215,9 +220,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>春日大社</h2>
           <p class="addr">奈良市春日野町160</p>
-          <p class="tip">朱红回廊＋石灯笼参道，雨天更有味道；从一之鸟居走上来。</p>
+          <ul class="shots"><li>机位A：一之鸟居到二之鸟居的石灯笼参道，低机位拍两排灯</li><li>机位B：朱红回廊转角，用柱子做画框</li></ul>
           <p class="when"><b>最佳时间</b> 白天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%98%A5%E6%97%A5%E5%A4%A7%E7%A4%BE%20%E7%9F%B3%E7%81%AF%E7%AC%BC" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%98%A5%E6%97%A5%E5%A4%A7%E7%A4%BE%20%E7%9F%B3%E7%81%AF%E7%AC%BC" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%98%A5%E6%97%A5%E5%A4%A7%E7%A4%BE%20%E7%9F%B3%E7%81%AF%E7%AC%BC%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%98%A5%E6%97%A5%E5%A4%A7%E7%A4%BE%20%E7%9F%B3%E7%81%AF%E7%AC%BC%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%98%A5%E6%97%A5%E5%A4%A7%E7%A4%BE%20%E7%9F%B3%E7%81%AF%E7%AC%BC%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -226,9 +231,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#5d6d64">街区</span></div>
           <h2>奈良町 · 庚申堂</h2>
           <p class="addr">奈良市西新屋町39</p>
-          <p class="tip">挂满红布猴的老街小屋，巷子窄，早上去人少。</p>
+          <ul class="shots"><li>机位A：巷口正面拍挂满红布猴的小屋，清晨没人</li><li>机位B：格子窗侧拍，人站窗前</li></ul>
           <p class="when"><b>最佳时间</b> 上午</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%E7%94%BA%20%E5%BA%9A%E7%94%B3%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%E7%94%BA%20%E5%BA%9A%E7%94%B3%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%E7%94%BA%20%E5%BA%9A%E7%94%B3%E5%A0%82%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A5%88%E8%89%AF%E7%94%BA%20%E5%BA%9A%E7%94%B3%E5%A0%82%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%E7%94%BA%20%E5%BA%9A%E7%94%B3%E5%A0%82%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -237,9 +242,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>猿泽池</h2>
           <p class="addr">奈良市登大路町 · 兴福寺旁</p>
-          <p class="tip">池面倒影拍五重塔，风小的时候最清楚；绕池一圈 10 分钟。</p>
+          <ul class="shots"><li>机位A：池南岸拍五重塔倒影，风小的时候水面最清</li><li>机位B：绕到东岸，塔＋柳树＋池面一起收</li></ul>
           <p class="when"><b>最佳时间</b> 上午</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E7%8C%BF%E6%B3%BD%E6%B1%A0%20%E5%80%92%E5%BD%B1" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E7%8C%BF%E6%B3%BD%E6%B1%A0%20%E5%80%92%E5%BD%B1" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E7%8C%BF%E6%B3%BD%E6%B1%A0%20%E5%80%92%E5%BD%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E7%8C%BF%E6%B3%BD%E6%B1%A0%20%E5%80%92%E5%BD%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E7%8C%BF%E6%B3%BD%E6%B1%A0%20%E5%80%92%E5%BD%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -248,9 +253,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#a8563f">食物</span></div>
           <h2>柿叶寿司</h2>
           <p class="addr">奈良市内老铺（近铁奈良站周边多家）</p>
-          <p class="tip">柿叶包着的鲭鱼寿司，奈良名物；拍拆叶子的瞬间。</p>
+          <ul class="shots"><li>机位A：拆开柿叶那一刻俯拍，叶子留在盘边</li><li>机位B：整盒摆开，配一杯茶</li></ul>
           <p class="when"><b>最佳时间</b> 午餐</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%20%E6%9F%BF%E5%8F%B6%E5%AF%BF%E5%8F%B8" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%20%E6%9F%BF%E5%8F%B6%E5%AF%BF%E5%8F%B8" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%20%E6%9F%BF%E5%8F%B6%E5%AF%BF%E5%8F%B8%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A5%88%E8%89%AF%20%E6%9F%BF%E5%8F%B6%E5%AF%BF%E5%8F%B8%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%20%E6%9F%BF%E5%8F%B6%E5%AF%BF%E5%8F%B8%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -259,9 +264,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#8a6a3d">店铺</span></div>
           <h2>春鹿酿造元</h2>
           <p class="addr">奈良市福智院町24-1</p>
-          <p class="tip">500 日元试饮 5 款清酒，含酒杯可带走；拍整排酒器。</p>
+          <ul class="shots"><li>机位A：整排酒杯＋五款酒并排俯拍</li><li>机位B：手举酒杯对着酒藏木梁，背景虚化</li></ul>
           <p class="when"><b>最佳时间</b> 白天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%98%A5%E9%B9%BF%20%E8%AF%95%E9%A5%AE" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%98%A5%E9%B9%BF%20%E8%AF%95%E9%A5%AE" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%98%A5%E9%B9%BF%20%E8%AF%95%E9%A5%AE%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%98%A5%E9%B9%BF%20%E8%AF%95%E9%A5%AE%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%98%A5%E9%B9%BF%20%E8%AF%95%E9%A5%AE%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="2">
@@ -270,9 +275,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第2天</span><span class="type" style="--c:#3f6a8a">体验</span></div>
           <h2>抹茶点茶</h2>
           <p class="addr">奈良町一带茶屋</p>
-          <p class="tip">用茶筅自己打一碗抹茶，拍起泡的瞬间。</p>
+          <ul class="shots"><li>机位A：打茶时手部特写，茶筅＋泡沫</li><li>机位B：成品碗放在榻榻米上俯拍，碗口留白</li></ul>
           <p class="when"><b>最佳时间</b> 下午</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A5%88%E8%89%AF%20%E6%8A%B9%E8%8C%B6%20%E4%BD%93%E9%AA%8C" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A5%88%E8%89%AF%20%E6%8A%B9%E8%8C%B6%20%E4%BD%93%E9%AA%8C" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%8A%B9%E8%8C%B6%20%E7%82%B9%E8%8C%B6%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%8A%B9%E8%8C%B6%20%E7%82%B9%E8%8C%B6%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%8A%B9%E8%8C%B6%20%E7%82%B9%E8%8C%B6%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="3">
@@ -281,9 +286,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第3天</span><span class="type" style="--c:#3f6a8a">体验</span></div>
           <h2>SAMURAI HONOR 武士刀道场</h2>
           <p class="addr">大阪市城東区鴫野西2-3-19 エクセレンス高山1F</p>
-          <p class="tip">穿袴、学拔刀与挥刀，教练会帮拍；动作定格那一下最帅。</p>
+          <ul class="shots"><li>机位A：穿袴站定，正面拔刀到一半的瞬间</li><li>机位B：侧面拍挥刀轨迹，让刀与手臂成一条斜线</li></ul>
           <p class="when"><b>最佳时间</b> 10:00 场</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E9%98%AA%20%E6%AD%A6%E5%A3%AB%E5%88%80%20%E4%BD%93%E9%AA%8C" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E9%98%AA%20%E6%AD%A6%E5%A3%AB%E5%88%80%20%E4%BD%93%E9%AA%8C" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E9%98%AA%20%E6%AD%A6%E5%A3%AB%E5%88%80%20%E4%BD%93%E9%AA%8C%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A4%A7%E9%98%AA%20%E6%AD%A6%E5%A3%AB%E5%88%80%20%E4%BD%93%E9%AA%8C%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E9%98%AA%20%E6%AD%A6%E5%A3%AB%E5%88%80%20%E4%BD%93%E9%AA%8C%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="3">
@@ -292,9 +297,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第3天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>空庭温泉（外观）</h2>
           <p class="addr">大阪市港区弁天1-2-3 OSAKA BAY TOWER</p>
-          <p class="tip">先认这栋楼；入口 2F、浴场 5F。穿浴衣在街区拍照是主打。</p>
+          <ul class="shots"><li>机位A：楼前广场仰拍，把 OSAKA BAY TOWER 字样带进来</li><li>机位B：穿浴衣在入口灯笼前拍半身</li></ul>
           <p class="when"><b>最佳时间</b> 午后</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E7%A9%BA%E5%BA%AD%E6%B8%A9%E6%B3%89%20%E6%B5%B4%E8%A1%A3" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E7%A9%BA%E5%BA%AD%E6%B8%A9%E6%B3%89%20%E6%B5%B4%E8%A1%A3" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E7%A9%BA%E5%BA%AD%E6%B8%A9%E6%B3%89%20%E6%B5%B4%E8%A1%A3%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E7%A9%BA%E5%BA%AD%E6%B8%A9%E6%B3%89%20%E6%B5%B4%E8%A1%A3%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E7%A9%BA%E5%BA%AD%E6%B8%A9%E6%B3%89%20%E6%B5%B4%E8%A1%A3%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -303,9 +308,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>伏见稻荷千本鸟居</h2>
           <p class="addr">京都市伏見区深草藪之内町68</p>
-          <p class="tip">只走前段也能拍到连续鸟居；等人流空档、用长焦压缩最出片。</p>
+          <ul class="shots"><li>机位A：鸟居隧道入口，站正中让朱红柱子从两侧压过来</li><li>机位B：走到第一个拐弯处回望，用长焦压缩出一层层的门</li><li>机位C：清晨 8 点前人最少，等一队人走远再按</li></ul>
           <p class="when"><b>最佳时间</b> 早上 8–9 点</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BC%8F%E8%A7%81%E7%A8%BB%E8%8D%B7%20%E5%8D%83%E6%9C%AC%E9%B8%9F%E5%B1%85%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%BC%8F%E8%A7%81%E7%A8%BB%E8%8D%B7%20%E5%8D%83%E6%9C%AC%E9%B8%9F%E5%B1%85%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BC%8F%E8%A7%81%E7%A8%BB%E8%8D%B7%20%E5%8D%83%E6%9C%AC%E9%B8%9F%E5%B1%85%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%BC%8F%E8%A7%81%E7%A8%BB%E8%8D%B7%20%E5%8D%83%E6%9C%AC%E9%B8%9F%E5%B1%85%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%BC%8F%E8%A7%81%E7%A8%BB%E8%8D%B7%20%E5%8D%83%E6%9C%AC%E9%B8%9F%E5%B1%85%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -314,9 +319,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>三十三间堂</h2>
           <p class="addr">京都市東山区三十三間堂廻り657</p>
-          <p class="tip">120 米长堂外观＋堂内 1001 尊观音（堂内禁拍）；外面拍长廊纵深。</p>
+          <ul class="shots"><li>机位A：堂外南侧斜角拍 120 米长廊外观</li><li>机位B：堂内禁拍，出来在庭园拍建筑屋檐</li></ul>
           <p class="when"><b>最佳时间</b> 白天</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%89%E5%8D%81%E4%B8%89%E9%97%B4%E5%A0%82" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%B8%89%E5%8D%81%E4%B8%89%E9%97%B4%E5%A0%82" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%89%E5%8D%81%E4%B8%89%E9%97%B4%E5%A0%82%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%B8%89%E5%8D%81%E4%B8%89%E9%97%B4%E5%A0%82%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%B8%89%E5%8D%81%E4%B8%89%E9%97%B4%E5%A0%82%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -325,9 +330,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>清水寺 · 清水舞台</h2>
           <p class="addr">京都市東山区清水1-294</p>
-          <p class="tip">舞台悬空、红叶季人多；从奥之院回望舞台是经典机位。</p>
+          <ul class="shots"><li>机位A：奥之院回望舞台，舞台悬空＋红叶填满背景</li><li>机位B：仁王门到本堂的参道，仰拍三重塔</li></ul>
           <p class="when"><b>最佳时间</b> 上午或傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B8%85%E6%B0%B4%E5%AF%BA%20%E8%88%9E%E5%8F%B0%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%B8%85%E6%B0%B4%E5%AF%BA%20%E8%88%9E%E5%8F%B0%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B8%85%E6%B0%B4%E5%AF%BA%20%E8%88%9E%E5%8F%B0%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%B8%85%E6%B0%B4%E5%AF%BA%20%E8%88%9E%E5%8F%B0%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%B8%85%E6%B0%B4%E5%AF%BA%20%E8%88%9E%E5%8F%B0%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -336,9 +341,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#5d6d64">街区</span></div>
           <h2>二年坂・三年坂</h2>
           <p class="addr">京都市東山区清水2丁目</p>
-          <p class="tip">石阶＋木屋＋和服人群，等一队和服走过再按快门。</p>
+          <ul class="shots"><li>机位A：石阶中段回身拍，让坡道和木屋层层叠</li><li>机位B：等一队和服走过石阶再按，人作前景</li></ul>
           <p class="when"><b>最佳时间</b> 上午</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BA%8C%E5%B9%B4%E5%9D%82%20%E7%9F%B3%E9%98%B6%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%BA%8C%E5%B9%B4%E5%9D%82%20%E7%9F%B3%E9%98%B6%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BA%8C%E5%B9%B4%E5%9D%82%20%E6%9C%BA%E4%BD%8D%20%E5%92%8C%E6%9C%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%BA%8C%E5%B9%B4%E5%9D%82%20%E6%9C%BA%E4%BD%8D%20%E5%92%8C%E6%9C%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%BA%8C%E5%B9%B4%E5%9D%82%20%E6%9C%BA%E4%BD%8D%20%E5%92%8C%E6%9C%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -347,9 +352,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>八坂神社</h2>
           <p class="addr">京都市東山区祇園町北側625</p>
-          <p class="tip">西楼门朱红大灯，晚上点灯更艳；祇园入口就是。</p>
+          <ul class="shots"><li>机位A：西楼门正前方仰拍朱红大灯</li><li>机位B：夜里点灯后从祇园侧回望</li></ul>
           <p class="when"><b>最佳时间</b> 傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%85%AB%E5%9D%82%E7%A5%9E%E7%A4%BE%20%E6%A5%BC%E9%97%A8" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%85%AB%E5%9D%82%E7%A5%9E%E7%A4%BE%20%E6%A5%BC%E9%97%A8" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%85%AB%E5%9D%82%E7%A5%9E%E7%A4%BE%20%E6%A5%BC%E9%97%A8%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%85%AB%E5%9D%82%E7%A5%9E%E7%A4%BE%20%E6%A5%BC%E9%97%A8%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%85%AB%E5%9D%82%E7%A5%9E%E7%A4%BE%20%E6%A5%BC%E9%97%A8%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -358,9 +363,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>祇园白川</h2>
           <p class="addr">京都市東山区祇園町南側</p>
-          <p class="tip">小桥流水＋柳树＋町屋，京都最像画的一条巷；早上去没人。</p>
+          <ul class="shots"><li>机位A：小桥上拍柳枝垂到水面，町屋在两侧</li><li>机位B：巷子里蹲低拍石板路，人走远留背影</li></ul>
           <p class="when"><b>最佳时间</b> 早上</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E7%A5%87%E5%9B%AD%E7%99%BD%E5%B7%9D%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E7%A5%87%E5%9B%AD%E7%99%BD%E5%B7%9D%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E7%A5%87%E5%9B%AD%E7%99%BD%E5%B7%9D%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E7%A5%87%E5%9B%AD%E7%99%BD%E5%B7%9D%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E7%A5%87%E5%9B%AD%E7%99%BD%E5%B7%9D%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -369,9 +374,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>巽桥</h2>
           <p class="addr">京都市東山区祇園町南側 · 白川上</p>
-          <p class="tip">石桥＋柳枝倒影，春天樱花、秋天红叶都好看。</p>
+          <ul class="shots"><li>机位A：桥侧拍石桥＋柳树＋水面倒影</li><li>机位B：桥面上俯拍水面，落叶季最佳</li></ul>
           <p class="when"><b>最佳时间</b> 早上</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%B7%BD%E6%A1%A5%20%E4%BA%AC%E9%83%BD" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%B7%BD%E6%A1%A5%20%E4%BA%AC%E9%83%BD" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%B7%BD%E6%A1%A5%20%E4%BA%AC%E9%83%BD%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%B7%BD%E6%A1%A5%20%E4%BA%AC%E9%83%BD%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%B7%BD%E6%A1%A5%20%E4%BA%AC%E9%83%BD%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -380,9 +385,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#5d6d64">街区</span></div>
           <h2>锦市场</h2>
           <p class="addr">京都市中京区錦小路通</p>
-          <p class="tip">400 米长的食材街，拍腌菜、玉子烧、章鱼蛋；边走边吃。</p>
+          <ul class="shots"><li>机位A：街口往里拍招牌连成一条线</li><li>机位B：玉子烧、章鱼蛋特写，手拿签子</li></ul>
           <p class="when"><b>最佳时间</b> 11:00–15:00</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%94%A6%E5%B8%82%E5%9C%BA%20%E5%B0%8F%E5%90%83" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E9%94%A6%E5%B8%82%E5%9C%BA%20%E5%B0%8F%E5%90%83" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%94%A6%E5%B8%82%E5%9C%BA%20%E5%B0%8F%E5%90%83%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E9%94%A6%E5%B8%82%E5%9C%BA%20%E5%B0%8F%E5%90%83%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E9%94%A6%E5%B8%82%E5%9C%BA%20%E5%B0%8F%E5%90%83%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="4">
@@ -391,9 +396,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第4天</span><span class="type" style="--c:#6a5a8a">建筑</span></div>
           <h2>京都站</h2>
           <p class="addr">京都市下京区東塩小路町</p>
-          <p class="tip">现代钢构大阶梯＋玻璃幕墙，晚上有灯光秀；站前广场拍全景。</p>
+          <ul class="shots"><li>机位A：站前广场仰拍钢构大屋顶</li><li>机位B：大阶梯顶部往下拍，晚上有灯光台阶</li></ul>
           <p class="when"><b>最佳时间</b> 傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BA%AC%E9%83%BD%E7%AB%99%20%E5%A4%A7%E9%98%B6%E6%A2%AF" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%BA%AC%E9%83%BD%E7%AB%99%20%E5%A4%A7%E9%98%B6%E6%A2%AF" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BA%AC%E9%83%BD%E7%AB%99%20%E5%A4%A7%E9%98%B6%E6%A2%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%BA%AC%E9%83%BD%E7%AB%99%20%E5%A4%A7%E9%98%B6%E6%A2%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%BA%AC%E9%83%BD%E7%AB%99%20%E5%A4%A7%E9%98%B6%E6%A2%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="5">
@@ -402,9 +407,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第5天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>もみじ回廊 · 红叶夜灯</h2>
           <p class="addr">山梨県南都留郡富士河口湖町河口 · 久保田一竹美術館旁</p>
-          <p class="tip">150 米川岸红叶隧道，日落后点灯到 21:00；灯亮后从低角度拍隧道。</p>
+          <ul class="shots"><li>机位A：川岸步道正中，低机位拍红叶隧道向远处收</li><li>机位B：走上小桥俯拍水面落叶＋灯串</li><li>机位C：灯刚亮的 17:00 前后，天还没全黑，颜色最丰富</li></ul>
           <p class="when"><b>最佳时间</b> 16:40–18:00</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E3%82%82%E3%81%BF%E3%81%98%E5%9B%9E%E5%BB%8A%20%E5%A4%9C%E6%9E%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E3%82%82%E3%81%BF%E3%81%98%E5%9B%9E%E5%BB%8A%20%E5%A4%9C%E6%9E%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E3%82%82%E3%81%BF%E3%81%98%E5%9B%9E%E5%BB%8A%20%E5%A4%9C%E6%9E%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E3%82%82%E3%81%BF%E3%81%98%E5%9B%9E%E5%BB%8A%20%E5%A4%9C%E6%9E%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E3%82%82%E3%81%BF%E3%81%98%E5%9B%9E%E5%BB%8A%20%E5%A4%9C%E6%9E%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="5">
@@ -413,9 +418,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第5天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>河口湖站前</h2>
           <p class="addr">山梨県南都留郡富士河口湖町船津3641</p>
-          <p class="tip">站前就能拍到富士山，天气好时列车＋山同框。</p>
+          <ul class="shots"><li>机位A：站前广场拍富士山，把站牌一起带进画面</li><li>机位B：月台上等列车进站，车头＋山同框</li></ul>
           <p class="when"><b>最佳时间</b> 上午</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B2%B3%E5%8F%A3%E6%B9%96%E7%AB%99%20%E5%AF%8C%E5%A3%AB%E5%B1%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%B2%B3%E5%8F%A3%E6%B9%96%E7%AB%99%20%E5%AF%8C%E5%A3%AB%E5%B1%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B2%B3%E5%8F%A3%E6%B9%96%E7%AB%99%20%E5%AF%8C%E5%A3%AB%E5%B1%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%B2%B3%E5%8F%A3%E6%B9%96%E7%AB%99%20%E5%AF%8C%E5%A3%AB%E5%B1%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%B2%B3%E5%8F%A3%E6%B9%96%E7%AB%99%20%E5%AF%8C%E5%A3%AB%E5%B1%B1%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="6">
@@ -424,9 +429,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第6天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>大石公园</h2>
           <p class="addr">山梨県南都留郡富士河口湖町大石2585</p>
-          <p class="tip">湖岸花田＋富士山同框，秋季有扫帚草；清晨逆光最柔。</p>
+          <ul class="shots"><li>机位A：花田步道尽头拍富士山，人站花田中间</li><li>机位B：湖边栏杆处拍逆富士，风小才拍得到</li></ul>
           <p class="when"><b>最佳时间</b> 09:00–10:30</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E7%9F%B3%E5%85%AC%E5%9B%AD%20%E9%80%86%E5%AF%8C%E5%A3%AB" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E7%9F%B3%E5%85%AC%E5%9B%AD%20%E9%80%86%E5%AF%8C%E5%A3%AB" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E7%9F%B3%E5%85%AC%E5%9B%AD%20%E9%80%86%E5%AF%8C%E5%A3%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A4%A7%E7%9F%B3%E5%85%AC%E5%9B%AD%20%E9%80%86%E5%AF%8C%E5%A3%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E7%9F%B3%E5%85%AC%E5%9B%AD%20%E9%80%86%E5%AF%8C%E5%A3%AB%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="6">
@@ -435,9 +440,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第6天</span><span class="type" style="--c:#6a5a8a">建筑</span></div>
           <h2>东京站丸之内红砖站舍</h2>
           <p class="addr">東京都千代田区丸の内1丁目</p>
-          <p class="tip">出站正面拍红砖站舍，晚上点灯更漂亮；KITTE 屋顶可俯拍。</p>
+          <ul class="shots"><li>机位A：站前广场正面拍整栋，晚上点灯</li><li>机位B：KITTE 屋顶庭园俯拍站舍与轨道</li></ul>
           <p class="when"><b>最佳时间</b> 17:00 后</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%9C%E4%BA%AC%E7%AB%99%20%E4%B8%B8%E4%B9%8B%E5%86%85%20%E5%A4%9C%E6%99%AF" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%B8%9C%E4%BA%AC%E7%AB%99%20%E4%B8%B8%E4%B9%8B%E5%86%85%20%E5%A4%9C%E6%99%AF" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%9C%E4%BA%AC%E7%AB%99%20%E4%B8%B8%E4%B9%8B%E5%86%85%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%B8%9C%E4%BA%AC%E7%AB%99%20%E4%B8%B8%E4%B9%8B%E5%86%85%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%B8%9C%E4%BA%AC%E7%AB%99%20%E4%B8%B8%E4%B9%8B%E5%86%85%20%E5%A4%9C%E6%99%AF%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -446,9 +451,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>雷门</h2>
           <p class="addr">東京都台東区浅草2-3-1</p>
-          <p class="tip">大提灯正面，早上 9 点前人最少；从仲见世侧回望也好看。</p>
+          <ul class="shots"><li>机位A：正门前 8–10 米蹲下仰拍，大提灯占画面上 1/3</li><li>机位B：从仲见世入口回望雷门，长焦压缩人群和灯笼</li></ul>
           <p class="when"><b>最佳时间</b> 09:00–09:30</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%9B%B7%E9%97%A8%20%E6%9C%BA%E4%BD%8D%20%E6%97%A9%E4%B8%8A" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E9%9B%B7%E9%97%A8%20%E6%9C%BA%E4%BD%8D%20%E6%97%A9%E4%B8%8A" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%9B%B7%E9%97%A8%20%E6%9C%BA%E4%BD%8D%20%E6%97%A9%E4%B8%8A%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E9%9B%B7%E9%97%A8%20%E6%9C%BA%E4%BD%8D%20%E6%97%A9%E4%B8%8A%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E9%9B%B7%E9%97%A8%20%E6%9C%BA%E4%BD%8D%20%E6%97%A9%E4%B8%8A%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -457,9 +462,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#5d6d64">街区</span></div>
           <h2>仲见世商店街</h2>
           <p class="addr">東京都台東区浅草1-36-3</p>
-          <p class="tip">主街两侧老铺，人形烧、雷米花糖；拍招牌和人群。</p>
+          <ul class="shots"><li>机位A：主街正中拍两侧招牌往远处收</li><li>机位B：人形烧摊位前拍手拿小吃的特写</li></ul>
           <p class="when"><b>最佳时间</b> 10:00 后</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BB%B2%E8%A7%81%E4%B8%96%20%E5%B0%8F%E5%90%83" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E4%BB%B2%E8%A7%81%E4%B8%96%20%E5%B0%8F%E5%90%83" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%BB%B2%E8%A7%81%E4%B8%96%20%E6%8B%8D%E7%85%A7%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E4%BB%B2%E8%A7%81%E4%B8%96%20%E6%8B%8D%E7%85%A7%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E4%BB%B2%E8%A7%81%E4%B8%96%20%E6%8B%8D%E7%85%A7%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -468,9 +473,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>浅草寺本堂</h2>
           <p class="addr">東京都台東区浅草2-3-1</p>
-          <p class="tip">本堂正面＋大灯笼，堂前广场可坐；参拜后拍屋脊。</p>
+          <ul class="shots"><li>机位A：堂前广场正中，仰拍屋脊＋大灯笼</li><li>机位B：侧廊下拍屋瓦与吊灯笼</li></ul>
           <p class="when"><b>最佳时间</b> 10:00–11:00</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B5%85%E8%8D%89%E5%AF%BA%20%E6%9C%AC%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%B5%85%E8%8D%89%E5%AF%BA%20%E6%9C%AC%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B5%85%E8%8D%89%E5%AF%BA%20%E6%9C%AC%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%B5%85%E8%8D%89%E5%AF%BA%20%E6%9C%AC%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%B5%85%E8%8D%89%E5%AF%BA%20%E6%9C%AC%E5%A0%82%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -479,9 +484,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>吾妻桥 · 隅田川</h2>
           <p class="addr">東京都台東区浅草1丁目</p>
-          <p class="tip">桥上拍晴空塔＋金色云＋河面，傍晚有逆光。</p>
+          <ul class="shots"><li>机位A：桥面人行道，横构图把晴空塔、金色云、河面排进一张</li><li>机位B：桥下河岸步道，逆光拍塔＋栏杆剪影</li></ul>
           <p class="when"><b>最佳时间</b> 傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%90%BE%E5%A6%BB%E6%A1%A5%20%E6%99%B4%E7%A9%BA%E5%A1%94%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%90%BE%E5%A6%BB%E6%A1%A5%20%E6%99%B4%E7%A9%BA%E5%A1%94%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%90%BE%E5%A6%BB%E6%A1%A5%20%E6%99%B4%E7%A9%BA%E5%A1%94%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%90%BE%E5%A6%BB%E6%A1%A5%20%E6%99%B4%E7%A9%BA%E5%A1%94%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%90%BE%E5%A6%BB%E6%A1%A5%20%E6%99%B4%E7%A9%BA%E5%A1%94%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -490,9 +495,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>东京晴空塔</h2>
           <p class="addr">東京都墨田区押上1-1-2</p>
-          <p class="tip">塔身外观从浅草侧拍；350 米天望甲板看东京全景（室内）。</p>
+          <ul class="shots"><li>机位A：浅草侧河岸远拍塔身全景</li><li>机位B：天望甲板落地窗前拍城市，玻璃反光要贴紧镜头</li></ul>
           <p class="when"><b>最佳时间</b> 白天或夜景</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%99%B4%E7%A9%BA%E5%A1%94%20%E5%A4%A9%E6%9C%9B%E7%94%B2%E6%9D%BF" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%99%B4%E7%A9%BA%E5%A1%94%20%E5%A4%A9%E6%9C%9B%E7%94%B2%E6%9D%BF" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%99%B4%E7%A9%BA%E5%A1%94%20%E5%A4%A9%E6%9C%9B%E7%94%B2%E6%9D%BF%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%99%B4%E7%A9%BA%E5%A1%94%20%E5%A4%A9%E6%9C%9B%E7%94%B2%E6%9D%BF%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%99%B4%E7%A9%BA%E5%A1%94%20%E5%A4%A9%E6%9C%9B%E7%94%B2%E6%9D%BF%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -501,9 +506,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#215c48">景点</span></div>
           <h2>墨田水族馆</h2>
           <p class="addr">東京都墨田区押上1-1-2 5–6F</p>
-          <p class="tip">企鹅池、水母缸是主打；室内光暗，手机开夜景模式。</p>
+          <ul class="shots"><li>机位A：企鹅池边贴着玻璃拍，等一只游过再按</li><li>机位B：水母缸前拍剪影，人站缸前背光</li></ul>
           <p class="when"><b>最佳时间</b> 午后</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A2%A8%E7%94%B0%E6%B0%B4%E6%97%8F%E9%A6%86%20%E4%BC%81%E9%B9%85" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E5%A2%A8%E7%94%B0%E6%B0%B4%E6%97%8F%E9%A6%86%20%E4%BC%81%E9%B9%85" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A2%A8%E7%94%B0%E6%B0%B4%E6%97%8F%E9%A6%86%20%E4%BC%81%E9%B9%85%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E5%A2%A8%E7%94%B0%E6%B0%B4%E6%97%8F%E9%A6%86%20%E4%BC%81%E9%B9%85%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E5%A2%A8%E7%94%B0%E6%B0%B4%E6%97%8F%E9%A6%86%20%E4%BC%81%E9%B9%85%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -512,9 +517,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>涩谷十字路口</h2>
           <p class="addr">東京都渋谷区道玄坂2-1</p>
-          <p class="tip">从站前天桥或 SHIBUYA SKY 俯拍人流；绿灯亮起那几秒。</p>
+          <ul class="shots"><li>机位A：站前天桥往下拍，绿灯亮起那三秒最多人</li><li>机位B：SHIBUYA SKY 俯拍，长曝光拍人流轨迹</li></ul>
           <p class="when"><b>最佳时间</b> 傍晚</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B6%A9%E8%B0%B7%20%E5%8D%81%E5%AD%97%E8%B7%AF%E5%8F%A3%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%B6%A9%E8%B0%B7%20%E5%8D%81%E5%AD%97%E8%B7%AF%E5%8F%A3%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B6%A9%E8%B0%B7%20%E5%8D%81%E5%AD%97%E8%B7%AF%E5%8F%A3%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%B6%A9%E8%B0%B7%20%E5%8D%81%E5%AD%97%E8%B7%AF%E5%8F%A3%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%B6%A9%E8%B0%B7%20%E5%8D%81%E5%AD%97%E8%B7%AF%E5%8F%A3%20%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -523,9 +528,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#b95d3d">机位</span></div>
           <h2>忠犬八公像</h2>
           <p class="addr">東京都渋谷区道玄坂2-1</p>
-          <p class="tip">八公像前永远排队，想拍空景要早上 8 点前。</p>
+          <ul class="shots"><li>机位A：早上 8 点前几乎没人，正面拍铜像</li><li>机位B：人群围满时侧拍，只留半身与花环</li></ul>
           <p class="when"><b>最佳时间</b> 早上</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B6%A9%E8%B0%B7%20%E5%85%AB%E5%85%AC%E5%83%8F" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%B6%A9%E8%B0%B7%20%E5%85%AB%E5%85%AC%E5%83%8F" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B6%A9%E8%B0%B7%20%E5%85%AB%E5%85%AC%E5%83%8F%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%B6%A9%E8%B0%B7%20%E5%85%AB%E5%85%AC%E5%83%8F%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%B6%A9%E8%B0%B7%20%E5%85%AB%E5%85%AC%E5%83%8F%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
       <article class="card" data-day="7">
@@ -534,15 +539,15 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
           <div class="meta"><span class="day">第7天</span><span class="type" style="--c:#8a6a3d">店铺</span></div>
           <h2>有乐町 东京交通会馆</h2>
           <p class="addr">東京都千代田区有楽町2-10-1</p>
-          <p class="tip">北海道物产店在这栋楼，买布丁牛奶；拍货架和限定款。</p>
+          <ul class="shots"><li>机位A：北海道物产店货架前拍限定布丁、牛奶</li><li>机位B：商场入口拍整栋楼与有乐町站牌子</li></ul>
           <p class="when"><b>最佳时间</b> 11:00–19:00</p>
-          <p class="kw">搜同款：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%9C%89%E4%B9%90%E7%94%BA%20%E5%8C%97%E6%B5%B7%E9%81%93%E7%89%A9%E4%BA%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://search.bilibili.com/all?keyword=%E6%9C%89%E4%B9%90%E7%94%BA%20%E5%8C%97%E6%B5%B7%E9%81%93%E7%89%A9%E4%BA%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
+          <p class="kw">看别人怎么拍：<a href="https://www.xiaohongshu.com/search_result?keyword=%E6%9C%89%E4%B9%90%E7%94%BA%20%E5%8C%97%E6%B5%B7%E9%81%93%E7%89%A9%E4%BA%A7%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">小红书</a><a href="https://www.douyin.com/search/%E6%9C%89%E4%B9%90%E7%94%BA%20%E5%8C%97%E6%B5%B7%E9%81%93%E7%89%A9%E4%BA%A7%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">抖音</a><a href="https://search.bilibili.com/all?keyword=%E6%9C%89%E4%B9%90%E7%94%BA%20%E5%8C%97%E6%B5%B7%E9%81%93%E7%89%A9%E4%BA%A7%20%E6%8B%8D%E7%85%A7" target="_blank" rel="noopener noreferrer">B站</a></p>
         </div>
       </article>
 </main>
 <footer>
-  图片来源：各景点、店铺与交通官网公开图片，以及本行程已核实的实景照片；仅作个人行程参考，署名见主页面「实景说明与图片来源」。<br>
-  「搜同款」跳到小红书／B站的搜索页，方便看别人怎么拍。
+  图片来源：各景点、店铺与交通官网公开图片，以及本行程已核实的实景照片；仅作个人行程参考。<br>
+  「看别人怎么拍」会跳到小红书／抖音／B站的关键词搜索页。
 </footer>
 <script>
 (function () {
@@ -552,9 +557,7 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
     btn.addEventListener('click', function () {
       var day = btn.dataset.day;
       buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-      cards.forEach(function (card) {
-        card.hidden = day !== 'all' && card.dataset.day !== day;
-      });
+      cards.forEach(function (card) { card.hidden = day !== 'all' && card.dataset.day !== day; });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
