@@ -1,8 +1,8 @@
 {
-  "version": "22bd6f3179e2a94e",
+  "version": "5c39aa5fdbcd51c1",
   "source_sha256": "3a9c125cc4dec071f67a5f9a2e6ac250f1c104bc2e50018a2eac328f56570fd4",
   "html_sha256": "84ee9c4e33ba799edce0b1344006f35f8e7a7f953abdd1378518169a6ec09068",
-  "checkins_sha256": "da52e99f5fd53928e5aec51852abb62d5d8de33b019c2fd9504ef843a9e7121a",
-  "prepared_at": "2026-11-10T09:20:52+00:00",
+  "checkins_sha256": "b0eb3b66089dfe3dbcae57fb7d0f49cc319106ab9243eea2f648fca3df52c4cc",
+  "prepared_at": "2026-11-10T09:34:31+00:00",
   "days": 7
 }
